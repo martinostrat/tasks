@@ -11,6 +11,8 @@ function deleteTask(e) {
     if(e.target.textContent == 'X') {
         if(confirm('Oled kindel, et soovid taski kustudada?')) {
             e.target.parentElement.remove();
+            task = e.target.parentElement.firstChild.textContent;
+            deleteTaskFromLS(task);
         }
     }
 }
@@ -24,6 +26,22 @@ function deleteTasks(e) {
         }
     }
 } 
+
+function deleteTaskFromLS(task) {
+    let tasks;
+
+    if(localStorage.getItem('tasks') === null) {
+        tasks = [];
+    } else {
+        tasks = JSON.parse(localStorage.getItem('tasks'))
+    }
+    tasks.forEach(function(tasksElement, index) {
+        if(tasksElement === task) {
+            tasks.splice(index, 1);
+        }
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
 
 function addTask(e) {
     const task = taskInput.value;
