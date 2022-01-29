@@ -1,9 +1,11 @@
 const form = document.querySelector('form');
 const taskInput = document.querySelector('#task');
 const tasksList = document.querySelector('.collection');
+const delTasksBtn = document.querySelector('#del-tasks')
 
 form.addEventListener('submit', addTask);
 tasksList.addEventListener('click', deleteTask);
+delTasksBtn.addEventListener('click', deleteTasks);
 
 function deleteTask(e) {
     if(e.target.textContent == 'X') {
@@ -12,6 +14,16 @@ function deleteTask(e) {
         }
     }
 }
+
+function deleteTasks(e) {
+    if(e.target.textContent == 'Clear All Tasks') {
+        if(confirm('Oled kindel, et soovid kõik taskid kustudada?')) {
+            while(tasksList.firstChild) {
+                tasksList.removeChild(tasksList.firstChild);
+            }
+        }
+    }
+} 
 
 function addTask(e) {
     const task = taskInput.value;
