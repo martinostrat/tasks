@@ -23,6 +23,7 @@ function deleteTasks(e) {
             while(tasksList.firstChild) {
                 tasksList.removeChild(tasksList.firstChild);
             }
+            deleteAllTasksFromLS(task);
         }
     }
 } 
@@ -41,6 +42,14 @@ function deleteTaskFromLS(task) {
         }
     });
     localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+
+function deleteAllTasksFromLS() {
+    if(localStorage.getItem('tasks') === null) {
+        let tasks = [];
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+    }
+    localStorage.removeItem('tasks')
 }
 
 function addTask(e) {
